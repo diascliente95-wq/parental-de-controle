@@ -1,32 +1,35 @@
-# Guardião Família — app Android nativo (fase 1)
+# Guardião Família — app Android nativo (fase de teste)
 
-Esta pasta contém o início de um app Android nativo separado do site publicado. O site da raiz (`index.html`) foi preservado.
+Esta pasta contém o projeto Android separado do site. O arquivo raiz `index.html` não foi alterado nesta atualização.
 
-## O que esta fase faz
-- Abre as configurações oficiais do Android para o responsável conceder **Acesso ao uso**.
-- Lê estatísticas de tempo em primeiro plano por aplicativo com `UsageStatsManager`.
-- Permite configurar um limite diário e mostra um aviso dentro do app quando o total registrado chega ao limite.
-- Guarda o limite localmente no aparelho.
+## Recursos preparados
+- Acesso às configurações oficiais para o responsável autorizar estatísticas de uso.
+- Relatório estimado de tempo em primeiro plano por aplicativo.
+- Limite diário configurável, usado para comparar e mostrar um aviso.
+- Lista de apps lançáveis para o responsável selecionar quais deseja pausar.
+- Serviço de acessibilidade com descrição visível, ativado manualmente pelo responsável. Quando um app selecionado passa para primeiro plano, o serviço mostra uma tela de pausa com opção de voltar à tela inicial.
+- Preferências armazenadas localmente no aparelho; sem transmissão remota.
 
-## O que ainda NÃO faz
-- Não bloqueia nem encerra outros aplicativos.
-- Não envia alertas remotos nem sincroniza com o celular do responsável.
-- Não coleta localização, mensagens, câmera, microfone ou conteúdo de tela.
-- Os números podem variar por versão/fabricante e dependem da permissão especial.
+## Limites importantes
+- O limite diário ainda não bloqueia automaticamente todos os apps quando o total é atingido. O bloqueio desta fase é por seleção de aplicativos.
+- A pausa é uma barreira visual local, não um bloqueio impossível de contornar. O usuário pode sair para a tela inicial ou desativar a acessibilidade nas configurações Android.
+- O relatório de uso pode variar conforme fabricante, versão do Android e modo como o sistema registra eventos.
+- Ainda não existe conexão entre o telefone do responsável e o telefone acompanhado.
+- O projeto foi escrito no repositório, mas precisa ser compilado e testado em um aparelho real; não há APK validado nesta atualização.
 
-## Desenvolver usando somente o celular
-1. Instale um ambiente Android compatível com Kotlin/Gradle, como AndroidIDE, apenas de uma fonte confiável.
-2. Abra o repositório no GitHub pelo navegador e use **Code → Download ZIP**.
-3. Extraia o ZIP no armazenamento do celular.
-4. Abra/import o diretório `android` no IDE.
-5. Se o IDE pedir Gradle Wrapper, use a ferramenta do próprio IDE para configurar um wrapper compatível com Android Gradle Plugin 8.7.3.
-6. Aguarde a sincronização. Se necessário, instale Android SDK 35 no gerenciador do IDE.
-7. Execute o app em um aparelho de teste ou use Build para gerar um APK de depuração.
-8. Abra o app e toque em **Configurar acesso ao uso**. Nas configurações, encontre Guardião Família, permita o acesso e volte ao app.
-9. Compare os resultados com Bem-estar digital. Os números podem diferir entre fabricantes.
+## Como testar pelo celular
+1. No GitHub, abra o repositório e use **Code → Download ZIP**.
+2. Extraia o ZIP e importe a pasta `android` em um IDE Android compatível com Kotlin/Gradle.
+3. Configure Gradle Wrapper compatível com Android Gradle Plugin 8.7.3 e instale Android SDK 35, se necessário.
+4. Compile e instale a versão de depuração em um aparelho de teste.
+5. Abra Guardião Família → **Configurar acesso ao uso** → habilite a permissão para Guardião Família e volte ao app.
+6. Toque em **Ativar pausa de aplicativos**. Nas configurações de Acessibilidade, leia a descrição e habilite Guardião Família apenas se concordar com a função.
+7. Volte ao app, marque um aplicativo não essencial (por exemplo, um jogo de teste) e toque em **Salvar aplicativos selecionados**.
+8. Abra o app selecionado e confirme se aparece a tela de pausa. Teste também o botão para voltar à tela inicial e confirme que apps essenciais não foram selecionados.
+9. Desative o serviço em Configurações → Acessibilidade para interromper o bloqueio de teste.
 
-## Preservação do site
-O app está dentro de `android/`; não substitui o site `index.html` nem exige alterar a publicação Vercel/GitHub Pages.
+## Transparência e privacidade
+O serviço recebe eventos de mudança de janela para identificar se um app escolhido foi aberto; ele não solicita leitura do conteúdo da tela (`canRetrieveWindowContent=false)) e não captura mensagens, senhas, câmera, microfone ou localização. O responsável deve explicar o funcionamento à criança/adolescente e manter o controle sobre as permissões.
 
-## Próxima fase
-Para bloquear apps, será preciso implementar um serviço de acessibilidade transparente, ativado manualmente no aparelho acompanhado, com lista de apps escolhida pela família e opção de desligar. Para sincronizar dois aparelhos, será necessário backend HTTPS autenticado. Não coloque senhas ou chaves secretas no código público.
+## Próxima etapa
+Para sincronização remota, será necessário backend HTTPS com autenticação, vínculo explícito entre dispositivos e controles para revogar o vínculo. Para distribuição pública, revise as políticas atuais do Google Play para serviços de acessibilidade e controles parentais.
