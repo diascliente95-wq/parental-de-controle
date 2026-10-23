@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Guardião Família</string>
+    <string name="accessibility_service_description">Pausa os aplicativos escolhidos pelo responsável e mostra uma tela explicativa. Não lê o conteúdo da tela.</string>
+</resources>
